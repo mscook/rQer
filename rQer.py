@@ -14,7 +14,7 @@
 #permissions and limitations under the License. 
 
 """
-Ensure uncalled bases ('N') have a quality score of 2
+Ensure that uncalled bases ('N') have a quality score of 2
 """
 
 import gzip
@@ -32,28 +32,25 @@ __doc__ = " %s v%s - %s" % (prog, meta.__version__, meta.__description__)
 
 
 def reset_quality(args):
-    full_file_path = args.input
-    full_out_path  = args.output
-    enc = args.qual_enc
-    enc = int(enc)
+    args.qual_enc = int(args.qual_enc)
     nQ = ''
-    if enc == 33:
+    if args.qual_enc == 33:
         nQ = '#'
         print "Using Q33"
-    elif enc == 64:
+    elif args.qual_enc == 64:
         nQ = 'B'
         print "Using Q64"
     else:
         print "Only support 33 or 64 PHRED encoded"
         sys.exit(1)
-    full_file_path = os.path.expanduser(full_file_path)
-    if full_file_path.endswith('.gz'):
-        f    = gzip.open(full_file_path, 'r')
-        fout = gzip.open(full_out_path, 'w')
+    args.input = os.path.expanduser(args.input)
+    if args.input.endswith('.gz'):
+        f    = gzip.open(args.input, 'r')
+        fout = gzip.open(args.output, 'w')
         was_gzipped = True
-    elif full_file_path.endswith('.fastq'):
-        f = open(full_file_path, 'r')
-        fout = open(full_out_path, 'w')
+    elif args.input.endswith('.fastq'):
+        f = open(args.input, 'r')
+        fout = open(args.output, 'w')
     else:
         print "Not supported"
         sys.exit(1)

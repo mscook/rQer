@@ -1,14 +1,14 @@
 rQer 
 ====
 
-Make reads output from CASAVA 1.8.2 with option --adapter-sequence sane.
+Make the reads output from CASAVA 1.8.2 with --adapter-sequence option sane.
 
 It appears that for CASAVA 1.8.2 providing the --adapter-sequence
 option results in the adapter being converted to 'N' while the existing 
 quality is retained. This does not make sense. The existing quality should be 
 converted to a 2 (PHRED 33 = '#', PHRED 64 = 'B').
 
-RQer takes input reads, and for all N bases which qualities are not equal 
+rQer takes input reads, and for all N bases which qualities are not equal 
 to '2' converts to '2'.
 
 
@@ -17,7 +17,7 @@ Usage
 
 Something like::
 
-    python rQer.py -h
+    ./rQer.py -h
     
     usage: rQer.py [-h] [-v] [--version] [-q QUAL_ENC] input output
 
@@ -41,6 +41,7 @@ Examples
 
 Input reads::
 
+
     @HWUSI-EAS1780:33:662Y6AAXX:8:1:13502:1071 1:N:0:GGACTCCT
     CGCNGGCGAGGCATCAATCTTTACGATCTGTATAAAGACGGATTGTTGANGATGTGTTAAAATTGATGTNNNNAAATTGTGAAGTAAATGTGCTTCCGGGGAAAATAAGTGACTTCATTAAAACTCTCAATCGTCCATCGACTGCCGCN
     +
@@ -53,7 +54,6 @@ Input reads::
 
 Standard (uncompressed Q33)::
 
-
     $ ./rQer.py test1.fastq test1_fixed.fastq
    
     Using Q33
@@ -65,8 +65,8 @@ Standard (uncompressed Q33)::
     ---
     > @BA#FFFFFIIIIIIIIHIIIIHIHHHEIHIIIHHGIIIIIIIIGDGG@#??A?BB@@@FIEHG@BB??#1#35::8:;HEGGGFEEDHGEGFGEGGDEEEGEEDC>CEEE@BDECB@B?@@BBBA?BB3:==4?==3=B@/B>=696#
 
-gzipped::
 
+gzipped::
 
     $ ./rQer.py test2.fastq.gz test2_fixed.fastq.gz
 
